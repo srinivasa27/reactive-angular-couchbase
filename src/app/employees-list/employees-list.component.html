@@ -1,0 +1,41 @@
+
+<div class="card">
+	<div class="card-header">Employees List</div>
+	<div style="margin: 20px 10px 0 20px">
+		Subscribe/Unsubscribe for employee list streaming <span
+			style="margin: 30px 10px 0 0px"><button
+				class="btn btn-outline-secondary"
+				[class.selected]="streamSubscribed" type="button"
+				(click)="subscribeEmployeeStream()">Subscribe</button></span> <span
+			style="margin: 0px 10px 0 0px">
+			<button class="btn btn-outline-secondary"
+				[class.selected]="!streamSubscribed" type="button"
+				(click)="unsubscribeEmployeeStream()">UnSubscribe</button>
+		</span>
+	</div>
+	<div style="margin: 20px 10px 0 20px">
+		<p>
+			<em>Select an employee from the list to see details</em>
+		</p>
+		<ul class="employee">
+			<li *ngFor="let employee of emps">
+				<button [class.selected]="employee === selectedEmployee"
+					type="button" (click)="selectEmployee(employee)">
+					<span class="badge">{{employee.id}}</span> <span class="name">{{employee.firstName}}</span>
+				</button>
+			</li>
+		</ul>
+	</div>
+	<div class="d-flex justify-content-between p-2">
+		<ngb-pagination [collectionSize]="collectionSize" [(page)]="page"
+			[pageSize]="pageSize" (pageChange)="refreshEmployees()">
+		</ngb-pagination>
+
+		<select class="form-select" style="width: auto" [(ngModel)]="pageSize"
+			(ngModelChange)="refreshEmployees">
+			<option [ngValue]="6">6 items per page</option>
+			<option [ngValue]="8">8 items per page</option>
+			<option [ngValue]="10">10 items per page</option>
+		</select>
+	</div>
+</div>
